@@ -53,7 +53,7 @@ app.post("/api", (request, response) => {
         
         GPTresponse = JSON.parse(res);
 
-//    GPTresponse = 
+//    sample GPTresponse formatting = 
 //        [
 //        {
 //            "from": "这家便利店提供各式各样的新鲜食材和生活用品。",
@@ -104,9 +104,7 @@ app.post("/api", (request, response) => {
     }
     
     chat();
-    
-//    GPTresponse = JSON.parse(chatCompletion)
-    
+
 });
 
 app.post("/checkResults", (request, response) => {
@@ -116,17 +114,3 @@ app.post("/checkResults", (request, response) => {
         body: JSON.stringify({"correct": checkResult(data)})
     })
 })
-
-//app.post('/api', (request, response) => {
-//    console.log(request.body);
-//});
-
-// use the below to fetch something the server is serving!
-//app.use(express.json());
-//
-//app.post('/api', function(req,res) {
-//    console.log(req.body);
-//    res.json({
-//        status: "success",
-//    })
-//})

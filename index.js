@@ -44,7 +44,7 @@ app.post("/api", (request, response) => {
     async function chat() {
         const chatCompletion = await openai.chat.completions.create({
         messages: [{ role: "user", content: input}],
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo", 
         });
         
         res = chatCompletion["choices"][0]["message"]["content"];
@@ -53,7 +53,8 @@ app.post("/api", (request, response) => {
         
         GPTresponse = JSON.parse(res);
 
-//    sample GPTresponse formatting = 
+////    sample GPTresponse formatting
+//        GPTresponse=
 //        [
 //        {
 //            "from": "这家便利店提供各式各样的新鲜食材和生活用品。",

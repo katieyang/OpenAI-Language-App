@@ -79,20 +79,49 @@
             //response should contain three arrays!
             let correct = JSON.parse(json.body)['correct'];
             if (correct) {
-                fromSelectedBtn.disabled = true;
-                toSelectedBtn.disabled = true;
-                pronunciationSelectedBtn.disabled = true;
+                // flash green
+                for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
+                    button.classList.remove("btn-primary")
+                    button.classList.add("btn-success")
+                }
+
+                timed = setTimeout(() => {
+                    for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
+                        button.classList.remove("btn-success")
+                        button.classList.add("btn-primary")
+                        fromSelectedBtn.disabled = true;
+                        toSelectedBtn.disabled = true;
+                        pronunciationSelectedBtn.disabled = true;
+                    }
+                }, 1000);
             } else {
-                fromSelectedBtn.classList.remove("active");
-                toSelectedBtn.classList.remove("active");
-                pronunciationSelectedBtn.classList.remove("active");
+                // flash red
+                for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
+                    button.classList.remove("btn-primary")
+                    button.classList.add("btn-danger")
+                }
+                
+                $("#tryagain").text("Please try again!")
+
+                timed = setTimeout(() => {
+                    for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
+                        button.classList.remove("btn-danger")
+                        button.classList.add("btn-primary")
+                        fromSelectedBtn.classList.remove("active");
+                        toSelectedBtn.classList.remove("active");
+                        pronunciationSelectedBtn.classList.remove("active");
+                    }
+                }, 1000);
+
             }
-            fromSelected = null;
-            fromSelectedBtn = null;
-            toSelected = null;
-            toSelectedBtn = null;
-            pronunciationSelected = null;
-            pronunciationSelectedBtn = null;
+            timed2 = setTimeout(() => {
+                fromSelected = null;
+                fromSelectedBtn = null;
+                toSelected = null;
+                toSelectedBtn = null;
+                pronunciationSelected = null;
+                pronunciationSelectedBtn = null;
+            }, 2000);
         }
 
         // better way to do this is just to fetch and overwrite on submit!
@@ -149,7 +178,7 @@
                 checkResults();
             }
         }
-        
+
 
         async function submitForm() {
             // update from and to language
@@ -157,7 +186,7 @@
             let fromSelectedOption = fromDropdown.options[fromDropdown.selectedIndex].text;
             let toDropdown = document.getElementById("toSelect");
             let toSelectedOption = toDropdown.options[toDropdown.selectedIndex].text;
-            
+
             let topic = String(document.getElementById("topic").value);
             let data = {diff, wordsOrSentences, topic, fromSelectedOption, toSelectedOption};
             let options = {
@@ -275,7 +304,8 @@
         </div>
 
         <div class="d-flex justify-content-center" id = "message">Tap the matching combination! </div>
-        
+        <div><p class="d-flex justify-content-center text-danger" id = "tryagain"></p></div>
+
         <div class="container">
             <div class="row">
                 <div class="col" id="from">

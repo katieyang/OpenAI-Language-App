@@ -20,6 +20,8 @@ let pronunciationSelectedBtn = null;
 
 $(document).ready(function(){
 
+    $("#loader").css("display", "none");
+
     const selectElement = document.getElementById("fromSelect");
     const selectElement2 = document.getElementById("toSelect");
 
@@ -160,6 +162,7 @@ function resultSelected(btn){
 
 
 async function submitForm() {
+    $("#loader").css("display", "block");
     // update from and to language
     let fromDropdown = document.getElementById("fromSelect");
     let fromSelectedOption = fromDropdown.options[fromDropdown.selectedIndex].text;
@@ -177,28 +180,46 @@ async function submitForm() {
     };
     let response = await fetch('/api', options);
     let json = await response.json();
+
+    $("#loader").css("display", "none");
+
     //response should contain three arrays!
     let body = JSON.parse(json.body);
 
     for (var i = 0; i < body['fromArr'].length; i++) {
+        // Creating a div for each button
+        const div1 = document.createElement('div');
+
+        // Creating the button
         const template1 = document.createElement('button');
-        template1.classList.add("btn", "btn-primary","m-1","col1");
-        template1.setAttribute("onclick","resultSelected(this)")
-        template1.setAttribute("data-bs-toggle","button")
-        template1.innerHTML = body['fromArr'][i]
-        $('#from').append(template1);
+        template1.classList.add("btn", "btn-primary", "m-1", "col1");
+        template1.setAttribute("onclick", "resultSelected(this)")
+        template1.setAttribute("data-bs-toggle", "button")
+        template1.innerHTML = body['fromArr'][i];
+
+        // Appending the button to the div
+        div1.appendChild(template1);
+
+        // Appending the div to the 'from' container
+        $('#from').append(div1);
+
+        const div2 = document.createElement('div');
         const template2 = document.createElement('button');
-        template2.classList.add("btn", "btn-primary","m-1","col2");
-        template2.setAttribute("onclick","resultSelected(this)")
-        template2.setAttribute("data-bs-toggle","button")
-        template2.innerHTML = body['toArr'][i]
-        $('#to').append(template2);
+        template2.classList.add("btn", "btn-primary", "m-1", "col2");
+        template2.setAttribute("onclick", "resultSelected(this)")
+        template2.setAttribute("data-bs-toggle", "button")
+        template2.innerHTML = body['toArr'][i];
+        div2.appendChild(template2);
+        $('#to').append(div2);
+
+        const div3 = document.createElement('div');
         const template3 = document.createElement('button');
-        template3.classList.add("btn", "btn-primary","m-1","col3");
-        template3.setAttribute("onclick","resultSelected(this)")
-        template3.setAttribute("data-bs-toggle","button")
-        template3.innerHTML = body['pronunciationArr'][i]
-        $('#pronunciation').append(template3);
+        template3.classList.add("btn", "btn-primary", "m-1", "col3");
+        template3.setAttribute("onclick", "resultSelected(this)")
+        template3.setAttribute("data-bs-toggle", "button")
+        template3.innerHTML = body['pronunciationArr'][i];
+        div3.appendChild(template3);
+        $('#pronunciation').append(div3);
     }
 }
 

@@ -44,7 +44,7 @@ app.post("/api", (request, response) => {
     async function chat() {
         const chatCompletion = await openai.chat.completions.create({
         messages: [{ role: "user", content: input}],
-        model: "gpt-3.5-turbo", 
+        model: "gpt-3.5-turbo"
         });
         
         res = chatCompletion["choices"][0]["message"]["content"];

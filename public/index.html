@@ -28,7 +28,6 @@
                 <a class="navbar-brand" href="#">KYLanguageLearningApp</a>
             </div>
         </nav>
-        <!-- Button to Open the Modal -->
 
         <!-- The Modal -->
         <div class="modal fade" id="myModal" data-bs-backdrop='static'>
@@ -39,7 +38,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">KY Language Learning App</h4>
                         <!--                        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                    </div>
+                    </div>         
 
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -92,6 +91,47 @@
             </div>
         </div>
 
+        <!-- Modal for error -->
+        <!-- Modal -->
+        <div class="modal fade" id="errorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        There was an error. Please refresh and try again!
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button onclick="location.reload()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for victory -->
+        <!-- Modal -->
+        <div class="modal fade" id="victoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Congratulations</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You got everything correct :)
+                        <img src="happycow.jpg">
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button onclick="location.reload()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="d-flex justify-content-center" id = "message">Tap the matching combination! </div>
         <div><p class="d-flex justify-content-center text-danger" id = "tryagain"></p></div>
 

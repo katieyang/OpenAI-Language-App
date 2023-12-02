@@ -17,6 +17,7 @@ let toSelected = null;
 let toSelectedBtn = null;
 let pronunciationSelected = null;
 let pronunciationSelectedBtn = null;
+let correctAnswers = 0;
 
 $(document).ready(function(){
 
@@ -75,6 +76,10 @@ async function checkResults(){
                 pronunciationSelectedBtn.disabled = true;
             }
         }, 1000);
+        correctAnswers += 1
+        if(correctAnswers == 5){
+            $("#victoryModal").modal('show');
+        }
     } else {
         // flash red
         for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
@@ -102,7 +107,7 @@ async function checkResults(){
         toSelectedBtn = null;
         pronunciationSelected = null;
         pronunciationSelectedBtn = null;
-    }, 2000);
+    }, 1000);
 }
 
 // better way to do this is just to fetch and overwrite on submit!
@@ -182,6 +187,13 @@ async function submitForm() {
     let json = await response.json();
 
     $("#loader").css("display", "none");
+
+    //    check if status is failed
+    if (json['status'] == "fail"){
+        $("#errorModal").modal('show');
+        //        location.reload() 
+        return
+    }
 
     //response should contain three arrays!
     let body = JSON.parse(json.body);

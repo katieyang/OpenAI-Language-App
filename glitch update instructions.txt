@@ -1,0 +1,1 @@
+if it doesn't work automatically go on Glitch project -> Terminal, git pull, you may also have to type refresh

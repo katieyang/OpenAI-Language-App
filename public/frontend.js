@@ -45,7 +45,7 @@ $(document).ready(function(){
     $("#myModal").modal('show');
 });
 
-//if it is correct, disable the buttons -> have the message change
+//if it is correct, disable the buttons
 // if it's not correct, tell the user (maybe play a sound?), and unselect the current selections -> have the message change
 async function checkResults(){
     let data = {fromSelected, toSelected, pronunciationSelected};
@@ -65,15 +65,15 @@ async function checkResults(){
         for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
             button.classList.remove("btn-primary")
             button.classList.add("btn-success")
+            fromSelectedBtn.disabled = true;
+            toSelectedBtn.disabled = true;
+            pronunciationSelectedBtn.disabled = true;
         }
 
         timed = setTimeout(() => {
             for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
                 button.classList.remove("btn-success")
                 button.classList.add("btn-primary")
-                fromSelectedBtn.disabled = true;
-                toSelectedBtn.disabled = true;
-                pronunciationSelectedBtn.disabled = true;
             }
         }, 1000);
         correctAnswers += 1
@@ -85,6 +85,9 @@ async function checkResults(){
         for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
             button.classList.remove("btn-primary")
             button.classList.add("btn-danger")
+            fromSelectedBtn.classList.remove("active");
+            toSelectedBtn.classList.remove("active");
+            pronunciationSelectedBtn.classList.remove("active");
         }
 
         $("#tryagain").text("Please try again!")
@@ -93,9 +96,6 @@ async function checkResults(){
             for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
                 button.classList.remove("btn-danger")
                 button.classList.add("btn-primary")
-                fromSelectedBtn.classList.remove("active");
-                toSelectedBtn.classList.remove("active");
-                pronunciationSelectedBtn.classList.remove("active");
             }
         }, 1000);
 
@@ -110,12 +110,12 @@ async function checkResults(){
     }, 1000);
 }
 
-// better way to do this is just to fetch and overwrite on submit!
 function difficulty(difficulty) {
     diff = String(difficulty);
 }
 
 function resultSelected(btn){
+    $("#tryagain").text("")
     event.preventDefault();
     //            console.log(btn.classList.contains("active"))
 

@@ -18,6 +18,7 @@ let toSelectedBtn = null;
 let pronunciationSelected = null;
 let pronunciationSelectedBtn = null;
 let correctAnswers = 0;
+let GPTresponse;
 
 $(document).ready(function(){
 
@@ -48,7 +49,7 @@ $(document).ready(function(){
 //if it is correct, disable the buttons
 // if it's not correct, tell the user (maybe play a sound?), and unselect the current selections -> have the message change
 async function checkResults(){
-    let data = {fromSelected, toSelected, pronunciationSelected};
+    let data = {fromSelected, toSelected, pronunciationSelected, GPTresponse};
     let fromSelectedBtnCopy = fromSelectedBtn;
     let toSelectedBtnCopy = toSelectedBtn;
     let pronunciationSelectedBtnCopy = pronunciationSelectedBtn;    
@@ -207,6 +208,8 @@ async function submitForm() {
 
     //response should contain three arrays!
     let body = JSON.parse(json.body);
+    GPTresponse = body['GPTresponse'];
+    console.log(GPTresponse)
 
     for (var i = 0; i < body['fromArr'].length; i++) {
         // Creating a div for each button
@@ -247,6 +250,4 @@ async function submitForm() {
 
 function ws(type) {
     wordsOrSentences = String(type);
-    console.log('this happened')
-    console.log(wordsOrSentences)
 }

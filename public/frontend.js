@@ -49,6 +49,9 @@ $(document).ready(function(){
 // if it's not correct, tell the user (maybe play a sound?), and unselect the current selections -> have the message change
 async function checkResults(){
     let data = {fromSelected, toSelected, pronunciationSelected};
+    let fromSelectedBtnCopy = fromSelectedBtn;
+    let toSelectedBtnCopy = toSelectedBtn;
+    let pronunciationSelectedBtnCopy = pronunciationSelectedBtn;    
     let options = {
         method: "POST",
         headers: {
@@ -62,52 +65,60 @@ async function checkResults(){
     let correct = JSON.parse(json.body)['correct'];
     if (correct) {
         // flash green
-        for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
+        for (button of [fromSelectedBtnCopy,toSelectedBtnCopy,pronunciationSelectedBtnCopy]){
             button.classList.remove("btn-primary")
             button.classList.add("btn-success")
-            fromSelectedBtn.disabled = true;
-            toSelectedBtn.disabled = true;
-            pronunciationSelectedBtn.disabled = true;
+            fromSelectedBtnCopy.disabled = true;
+            toSelectedBtnCopy.disabled = true;
+            pronunciationSelectedBtnCopy.disabled = true;
         }
 
         timed = setTimeout(() => {
-            for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
+            for (button of [fromSelectedBtnCopy, toSelectedBtnCopy, pronunciationSelectedBtnCopy]) {
                 button.classList.remove("btn-success")
                 button.classList.add("btn-primary")
             }
-        }, 1000);
+        }, 500);
         correctAnswers += 1
         if(correctAnswers == 5){
             $("#victoryModal").modal('show');
         }
-    } else {
-        // flash red
-        for (button of [fromSelectedBtn,toSelectedBtn,pronunciationSelectedBtn]){
-            button.classList.remove("btn-primary")
-            button.classList.add("btn-danger")
-            fromSelectedBtn.classList.remove("active");
-            toSelectedBtn.classList.remove("active");
-            pronunciationSelectedBtn.classList.remove("active");
-        }
 
-        $("#tryagain").text("Please try again!")
-
-        timed = setTimeout(() => {
-            for (button of [fromSelectedBtn, toSelectedBtn, pronunciationSelectedBtn]) {
-                button.classList.remove("btn-danger")
-                button.classList.add("btn-primary")
-            }
-        }, 1000);
-
-    }
-    timed2 = setTimeout(() => {
         fromSelected = null;
         fromSelectedBtn = null;
         toSelected = null;
         toSelectedBtn = null;
         pronunciationSelected = null;
         pronunciationSelectedBtn = null;
-    }, 1000);
+        console.log(fromSelectedBtnCopy);
+
+    } else {
+        // flash red
+        for (button of [fromSelectedBtnCopy,toSelectedBtnCopy,pronunciationSelectedBtnCopy]){
+            button.classList.remove("btn-primary")
+            button.classList.add("btn-danger")
+            fromSelectedBtnCopy.classList.remove("active");
+            toSelectedBtnCopy.classList.remove("active");
+            pronunciationSelectedBtnCopy.classList.remove("active");
+        }
+
+        $("#tryagain").text("Please try again!")
+
+        timed = setTimeout(() => {
+            for (button of [fromSelectedBtnCopy, toSelectedBtnCopy, pronunciationSelectedBtnCopy]) {
+                button.classList.remove("btn-danger")
+                button.classList.add("btn-primary")
+            }
+        }, 500);
+
+        fromSelected = null;
+        fromSelectedBtn = null;
+        toSelected = null;
+        toSelectedBtn = null;
+        pronunciationSelected = null;
+        pronunciationSelectedBtn = null;
+        console.log(fromSelectedBtnCopy);
+    }
 }
 
 function difficulty(difficulty) {
@@ -117,7 +128,6 @@ function difficulty(difficulty) {
 function resultSelected(btn){
     $("#tryagain").text("")
     event.preventDefault();
-    //            console.log(btn.classList.contains("active"))
 
     if (btn.classList.contains("col1")) {
         if (fromSelected != null) {
